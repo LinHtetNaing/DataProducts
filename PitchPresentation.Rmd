@@ -1,0 +1,59 @@
+---
+title: "Pitch Presentation of the Shiny App - Prediction of Miles Per Gallon"
+author: "Lin Htet Naing"
+date: "9/3/2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+- Prediction of Miles Per Gallon by Horsepower and/or Weight of a car is a course project for Data Science - Developing Data Products course.
+- The data is from "mtcars" dataset which was extracted from the 1974 Motor Trend US magazine.
+- Fuel consumption expressed as miles per gallon (mpg) is predicted from gross horsepower (hp) and weight (wt) of a car.
+
+## Models for prediction
+Three linear models were fit:
+
+ Model 1 - Miles per gallon (mpg) vs Horsepower (hp)
+ 
+ Model 2 - Miles per gallon (mpg) vs Weight (wt)
+ 
+ Model 3 - Miles per gallon (mpg) vs Horsepower (hp) and Weight (wt)
+
+These models were used to predict mpg from horsepower or weight or both. 
+
+## Using the application
+Shiny application can be found here: <https://linhtetnaing.shinyapps.io/CourseProject/>.
+
+In the application,
+
+- horsepower and weight are available to be selected in the sidebar panel.
+- once selected, it is required to click submit button.
+- in the main panel, scatter plots showing relation between mpg and horsepower, and mpg and weight (in 1000 pounds) are shown.
+- a related regression line is also included in each graph.
+- under the graphs, predictions of miles per gallon (calculated from the inputs) are shown in textboxes - using "reactive()".
+
+
+## Scatter plots (mpg vs hp, mpg vs wt)
+```{r cars, echo = FALSE}
+library(datasets)
+data("mtcars")
+    model1 <- lm(mpg ~ hp, data = mtcars)
+    model2 <- lm(mpg ~ wt, data = mtcars)
+par(mfrow=c(1,2))
+ plot(mtcars$hp, mtcars$mpg, main = "Miles per gallon vs Horsepower", xlab = "Horsepower",
+             ylab = "Miles Per Gallon",
+             pch = 16)
+        abline(model1, col = "red", lwd = 2)
+        
+ plot(mtcars$wt, mtcars$mpg, main = "Miles per gallon vs Weight", xlab = "Weight (in 1000 pounds)",
+             ylab = "Miles Per Gallon",
+             pch = 16)
+        abline(model2, col = "blue", lwd = 2)
+```
+
+The ui.R and server.R files can be found here:
+<https://github.com/LinHtetNaing/DataProducts.git>.
